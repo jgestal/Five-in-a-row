@@ -12,7 +12,7 @@ int state = 0;
 int [][] board = new int[w][h];
 
 void setup() {
-  size(600, 600);
+  size(601, 601);
   ellipseMode(CORNER);
   textAlign(CENTER, CENTER);
   textSize(16);
@@ -56,6 +56,9 @@ void mousePressed() {
 
     int c = int(mouseX / bs);
     int r = int(mouseY / bs);
+    
+    c = c < w*bs ? c : w*bs;
+    r = r < h*bs ? r : h*bs;
 
     if (board[c][r] == 0) {
       board[c][r] = player;
@@ -87,15 +90,10 @@ int getState() {
     int v = board[c][r];
 
     if (v > 0) {
-
       if (v == f(c, r+1) && v == f(c, r+2) && v == f(c, r+3) && v == f(c, r+4)) return v; 
       if (v == f(c+1, r) && v == f(c+2, r) && v == f(c+3, r) && v == f(c+4, r)) return v;
-
       if (v == f(c+1, r+1) && v == f(c+2, r+2) && v == f(c+3, r+3) && v == f(c+4, r+4)) return v;
-      if (v == f(c-1, r-1) && v == f(c-2, r-2) && v == f(c-3, r-3) && v == f(c-4, r-4)) return v;
-
       if (v == f(c+1, r-1) && v == f(c+2, r-2) && v == f(c+3, r-3) && v == f(c+4, r-4)) return v;
-      if (v == f(c-1, r+1) && v == f(c-2, r+2) && v == f(c-3, r+3) && v == f(c-4, r+4)) return v;
     } else {
       emptyFields++;
     }
